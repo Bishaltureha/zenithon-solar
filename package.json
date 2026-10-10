@@ -1,0 +1,10 @@
+{
+  "name": "zenithon-solar",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Zenithon Solar website",
+  "scripts": {
+    "dev": "npx --yes serve . -l 3000 --no-clipboard",
+    "start": "npm run dev"
+  }
+}
