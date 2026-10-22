@@ -994,3 +994,22 @@ a:focus-visible,button:focus-visible{outline:2px solid #8fb82a;outline-offset:3p
 /* icon-to-text gap: tight */
 .ci{gap:.45rem}.fci{gap:.4rem}
 .ci i{width:22px}.fci i{width:18px}
+/* whole row (icon + text) is one tappable link */
+.ci,.fci{position:relative}
+.ci a::after,.fci a::after{content:"";position:absolute;inset:-4px -6px;border-radius:.5rem}
+.ci:has(a),.fci:has(a){cursor:pointer}
+.ci:has(a):hover i,.fci:has(a):hover i{color:#fff}
+.ci:has(a:hover) a,.fci:has(a:hover) a{color:var(--lime)}
+.fci-divider{border:0;height:1px;background:rgba(255,255,255,.2);margin:1rem 0 0}
+.fsoc{display:flex;gap:1.1rem;margin-top:1rem}
+.fsoc a{display:grid;place-items:center;width:26px;height:26px;color:var(--lime);transition:color .2s,transform .2s}
+.fsoc a:hover{color:#fff;transform:translateY(-2px)}
+.fsoc svg{width:24px;height:24px}
+.fsoc a:nth-child(3) svg{width:20px;height:20px}
+/* footer social logos: equalised visual size (~18px glyph each) */
+.fsoc a svg{width:24px;height:24px}
+.fsoc a:nth-child(2) svg{width:26px;height:26px}
+.fsoc a:nth-child(3) svg{width:18px;height:18px}
+.fsoc{align-items:center}
+.fsoc a:nth-child(2) svg{translate:0 -1.5px}
+.fsoc a:nth-child(3) svg{translate:0 3px}
