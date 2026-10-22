@@ -950,3 +950,19 @@ a:focus-visible,button:focus-visible{outline:2px solid #8fb82a;outline-offset:3p
 .wa::before,.wa::after{border-color:rgba(37,211,102,.8)}
 /* home hero: no decorative green lines */
 .hero::before,.hero::after{display:none}
+.ig-link{display:flex!important;align-items:center;gap:.55rem}
+.ig-link svg{width:18px;height:18px;flex:none}
+.ig-link:hover{color:var(--lime)!important}
+.soc-row{display:flex;gap:.7rem;margin-top:.9rem}
+.soc-row .ig-link{width:40px;height:40px;justify-content:center;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);color:#fff;transition:background .25s,transform .25s,border-color .25s}
+.soc-row .ig-link:hover{background:var(--lime);border-color:var(--lime);color:#14275f!important;transform:translateY(-2px)}
+.soc-row .ig-link svg{width:19px;height:19px}
+
+/* Contact info rows: icon + text */
+.info{gap:1.3rem}
+.ci{display:flex;align-items:flex-start;gap:1rem}
+.ci i{flex:none;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:rgba(169,207,56,.14);border:1px solid rgba(169,207,56,.55);color:var(--lime)}
+.ci i svg{width:21px;height:21px}
+.ci b{margin-bottom:.25rem}
+.ci a,.ci span{font-size:1.02rem;line-height:1.6;color:#fff;word-break:break-word}
+.ci a:hover{color:var(--lime)}
