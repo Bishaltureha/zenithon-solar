@@ -966,3 +966,31 @@ a:focus-visible,button:focus-visible{outline:2px solid #8fb82a;outline-offset:3p
 .ci b{margin-bottom:.25rem}
 .ci a,.ci span{font-size:1.02rem;line-height:1.6;color:#fff;word-break:break-word}
 .ci a:hover{color:var(--lime)}
+
+/* Footer contact rows */
+.fci{display:flex;align-items:flex-start;gap:.75rem;margin-bottom:.8rem}
+.fci i{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:rgba(169,207,56,.14);border:1px solid rgba(169,207,56,.5);color:var(--lime)}
+.fci i svg{width:16px;height:16px}
+.fci a,.fci span{font-size:.9rem;line-height:1.55;color:rgba(255,255,255,.82);padding-top:.35rem;word-break:break-word}
+.fci a:hover{color:var(--lime)}
+/* tighter contact rows */
+.fci{margin-bottom:.45rem;gap:.65rem}
+.fci i{width:30px;height:30px}
+.fci i svg{width:15px;height:15px}
+.fci a,.fci span{padding-top:.28rem;line-height:1.45}
+.info{gap:.8rem}
+.ci i{width:40px;height:40px}
+.ci i svg{width:19px;height:19px}
+.ci a,.ci span{line-height:1.5}
+/* contact icons: no border */
+.ci i,.fci i{border:0;background:rgba(169,207,56,.16)}
+/* contact icons: plain, no circle */
+.ci i,.fci i{background:none;border:0;border-radius:0;width:26px;height:26px;margin-top:.1rem}
+.ci i svg{width:22px;height:22px}
+.fci i svg{width:18px;height:18px}
+.fci i{width:22px;height:22px}
+.ci{gap:.85rem}.fci{gap:.7rem}
+.fci a,.fci span{padding-top:0}
+/* icon-to-text gap: tight */
+.ci{gap:.45rem}.fci{gap:.4rem}
+.ci i{width:22px}.fci i{width:18px}
