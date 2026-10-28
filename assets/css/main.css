@@ -1013,3 +1013,53 @@ a:focus-visible,button:focus-visible{outline:2px solid #8fb82a;outline-offset:3p
 .fsoc{align-items:center}
 .fsoc a:nth-child(2) svg{translate:0 -1.5px}
 .fsoc a:nth-child(3) svg{translate:0 3px}
+
+/* ===== Responsive pass: tablet + phone ===== */
+.logo-img{flex:none}
+.logo-img img{max-width:none}
+@media(max-width:1100px){
+  #links{display:none}
+  #burger{display:block}
+}
+@media(min-width:620px) and (max-width:900px){
+  .hh-grid{grid-template-columns:1fr 1fr}
+  .hh-card:last-child{grid-column:1/-1}
+}
+@media(max-width:900px){
+  .hero-tag{padding:0 5.2rem 0 1.4rem}
+}
+@media(max-width:767px){
+  .f-grid{grid-template-columns:1fr 1fr;gap:2rem 1.5rem}
+  .f-grid>div:first-child,.f-grid>div:last-child{grid-column:1/-1}
+}
+@media(max-width:700px){
+  .ap-vgrid{gap:.7rem}
+  .ap-val{flex:0 1 calc(50% - .35rem);min-width:0;padding:1.1rem 1rem}
+  .ap-val b{font-size:.92rem}
+}
+@media(max-width:480px){
+  .ap-quote,.rs-quote{font-size:1.6rem}
+  .ap-title{font-size:1.9rem}
+}
+/* project captions: readable on green */
+.rs-gal figcaption b{color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.45)}
+.rs-gal.g4 figcaption{padding-top:3.2rem;background:linear-gradient(180deg,rgba(60,95,0,0) 0%,rgba(60,95,0,.82) 45%,rgba(50,80,0,.96) 100%)}
+.rs-gal figcaption span,.rs-gal figcaption em{text-shadow:0 1px 6px rgba(0,0,0,.4)}
+
+/* ZAM comparison table + clients grid on phones */
+@media(max-width:700px){
+  .compare{padding:1.4rem 1.1rem}
+  .cmp-table{min-width:0;display:block}
+  .cmp-table thead{display:none}
+  .cmp-table tbody,.cmp-table tr{display:block}
+  .cmp-table tr{border:1px solid #dfe4f1;border-radius:.7rem;margin-bottom:.8rem;overflow:hidden;background:#fff}
+  .cmp-table td{display:grid;grid-template-columns:96px 1fr;gap:.8rem;padding:.65rem .9rem;border:0;border-bottom:1px solid #edf0f7;text-align:left;white-space:normal;word-break:break-word}
+  .cmp-table td:last-child{border-bottom:0}
+  .cmp-table td::before{content:attr(data-l);font:700 .62rem Montserrat,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#8fb82a;padding-top:.15rem}
+  .cmp-table td:first-child{background:#f4f6fa;font-weight:700;color:var(--brand)}
+  .brand-grid{grid-template-columns:1fr 1fr;gap:.7rem}
+  .brand-logo{height:84px;padding:.5rem .7rem}
+}
+@media(max-width:360px){
+  .brand-grid{grid-template-columns:1fr}
+}
