@@ -12,7 +12,7 @@ a.alt{background:#a9cf38;color:#1d3300}</style></head>
 <script>
 (function(){
   var p=location.pathname.toLowerCase(),t="/";
-  var map=[["commercial","/commercial/"],["residential","/residential/"],["rooftop","/residential/"],["housing","/housing-society/"],["society","/housing-society/"],["ground","/ground-mount/"],["maintenance","/operations-maintenance/"],["service","/services/"],["solution","/services/"],["about","/about/"],["contact","/contact/"],["consult","/contact/"],["quote","/contact/"],["enquir","/contact/"],["calculator","/residential/"],["client","/clients/"],["partner","/clients/"],["zam","/zam-steel/"]];
+  var map=[["commercial","/commercial"],["residential","/residential"],["rooftop","/residential"],["housing","/housing-society"],["society","/housing-society"],["ground","/ground-mount"],["maintenance","/operations-maintenance"],["service","/services"],["solution","/services"],["about","/about"],["contact","/contact"],["consult","/contact"],["quote","/contact"],["enquir","/contact"],["calculator","/residential"],["client","/clients"],["partner","/clients"],["zam","/zam-steel"]];
   for(var i=0;i<map.length;i++){if(p.indexOf(map[i][0])>-1){t=map[i][1];break}}
   setTimeout(function(){location.replace(t)},1200);
 })();
