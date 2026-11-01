@@ -24,11 +24,64 @@ function calc(){
 }
 if(kw){kw.oninput=calc;rate.oninput=calc;
 document.querySelectorAll('#presets button').forEach(b=>b.onclick=()=>{kw.value=b.dataset.kw;calc()});calc();}
-// quote form -> opens visitor's email app (no backend). Swap for Formspree etc. to send directly.
+// quote form -> emailed to info@zenithonsolar.com (FormSubmit, no backend) and, in the same click, opens WhatsApp with the enquiry pre-filled.
 if($('quote'))$('quote').addEventListener('submit',e=>{
-  e.preventDefault();const f=new FormData(e.target);
-  const body=`Name: ${f.get('name')}\nPhone: ${f.get('phone')}\nEmail: ${f.get('email')}\nInterested in: ${f.get('type')}\n\n${f.get('msg')}`;
-  location.href=`mailto:info@zenithonsolar.com?subject=${encodeURIComponent('Solar enquiry – '+f.get('type'))}&body=${encodeURIComponent(body)}`;
-  $('fmsg').textContent='Opening your email app… thank you!';
+  e.preventDefault();
+  const form=e.target,f=new FormData(form),btn=form.querySelector('button[type=submit]'),msg=$('fmsg');
+  if(f.get('_gotcha'))return; // honeypot: bots only
+  const name=(f.get('name')||'').trim(),phone=(f.get('phone')||'').trim(),email=(f.get('email')||'').trim(),type=f.get('type'),req=(f.get('msg')||'').trim();
+  if(phone.replace(/\D/g,'').length<7){msg.textContent='Please enter a valid phone number.';return}
+  const text=`New solar enquiry – ${type}\nName: ${name}\nPhone: ${phone}\nEmail: ${email||'-'}\nRequirement: ${req||'-'}`;
+  const wa='https://wa.me/919833302828?text='+encodeURIComponent(text);
+  btn.disabled=true;msg.textContent='Sending your enquiry…';
+  // open WhatsApp synchronously (inside the click) so popup blockers allow it
+  const win=window.open(wa,'_blank');
+  const mail=fetch('https://formsubmit.co/ajax/info@zenithonsolar.com',{
+    method:'POST',keepalive:true,
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({_subject:'Solar enquiry – '+type+' – '+name,_template:'table',_captcha:'false',
+      Name:name,Phone:phone,Email:email||'-',Interested_in:type,Requirement:req||'-',email:email||undefined})
+  }).then(r=>r.json().then(j=>r.ok&&String(j.success)!=='false'));
+  mail.catch(()=>false).then(ok=>{
+    if(!win)msg.innerHTML='Email sent. <a href="'+wa+'" target="_blank" rel="noopener">Tap here to send on WhatsApp too</a>.';
+    else msg.textContent=ok?'Thank you! Your enquiry was emailed to us. Please tap Send in WhatsApp to finish.':'WhatsApp opened, but email could not be sent. Please tap Send in WhatsApp, or call +91 98333 02828.';
+    if(ok===false&&!win)msg.innerHTML='Could not send email. <a href="'+wa+'" target="_blank" rel="noopener">Send on WhatsApp</a> or call +91 98333 02828.';
+    if(ok)form.reset();
+    btn.disabled=false;
+  });
 });
 $('yr').textContent=new Date().getFullYear();
+
+// Services dropdown: opens on click/tap (and on hover with a mouse, via CSS). Closes on outside click, Escape, or choosing an item.
+(function(){
+  var dds=document.querySelectorAll('.nl-dd');
+  function close(dd){dd.classList.remove('open');var a=dd.querySelector('a.nl');if(a)a.setAttribute('aria-expanded','false')}
+  dds.forEach(function(dd){
+    var a=dd.querySelector('a.nl');if(!a)return;
+    a.setAttribute('aria-expanded','false');
+    a.addEventListener('click',function(e){e.preventDefault();var o=dd.classList.toggle('open');a.setAttribute('aria-expanded',o?'true':'false')});
+  });
+  document.addEventListener('click',function(e){dds.forEach(function(dd){if(!dd.contains(e.target))close(dd)})});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')dds.forEach(close)});
+})();
+
+// service-landing: on a service page, show the Services dropdown already open (current service highlighted),
+// so visitors arriving from Google can see and switch to the other services. Closes on scroll, outside click or Escape.
+(function(){
+  var path=location.pathname.replace(/\.html$/,'').replace(/\/$/,'');
+  var services=['/ground-mount','/residential','/housing-society','/commercial','/operations-maintenance'];
+  if(services.indexOf(path)<0)return;
+  var dd=document.querySelector('.nl-dd');if(!dd)return;
+  var cur=dd.querySelector('.dd-menu a[href="'+path+'"]');
+  if(cur){cur.setAttribute('aria-current','page');cur.classList.add('current')}
+  var links=document.getElementById('links');
+  if(!links||getComputedStyle(links).display==='none')return;   // phone/tablet burger menu: nothing to open
+  var a=dd.querySelector('a.nl');
+  function shut(){dd.classList.remove('open');if(a)a.setAttribute('aria-expanded','false');window.removeEventListener('scroll',onScroll)}
+  function onScroll(){if(window.scrollY>60)shut()}
+  setTimeout(function(){
+    if(window.scrollY>60)return;
+    dd.classList.add('open');if(a)a.setAttribute('aria-expanded','true');
+    window.addEventListener('scroll',onScroll,{passive:true});
+  },700);
+})();
