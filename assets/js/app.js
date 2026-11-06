@@ -34,7 +34,7 @@ if($('quote'))$('quote').addEventListener('submit',e=>{
   const name=(f.get('name')||'').trim(),phone=(f.get('phone')||'').trim(),email=(f.get('email')||'').trim(),type=f.get('type'),req=(f.get('msg')||'').trim();
   if(phone.replace(/\D/g,'').length<7){msg.textContent='Please enter a valid phone number.';return}
   const text=`New solar enquiry – ${type}\nName: ${name}\nPhone: ${phone}\nEmail: ${email||'-'}\nRequirement: ${req||'-'}`;
-  const wa='https://wa.me/919833302828?text='+encodeURIComponent(text);
+  const wa='https://wa.me/919925641060?text='+encodeURIComponent(text);
   btn.disabled=true;msg.textContent='Sending your enquiry…';
   // open WhatsApp synchronously (inside the click) so popup blockers allow it
   const win=window.open(wa,'_blank');
@@ -46,8 +46,8 @@ if($('quote'))$('quote').addEventListener('submit',e=>{
   }).then(r=>r.json().then(j=>r.ok&&String(j.success)!=='false'));
   mail.catch(()=>false).then(ok=>{
     if(!win)msg.innerHTML='Email sent. <a href="'+wa+'" target="_blank" rel="noopener">Tap here to send on WhatsApp too</a>.';
-    else msg.textContent=ok?'Thank you! Your enquiry was emailed to us. Please tap Send in WhatsApp to finish.':'WhatsApp opened, but email could not be sent. Please tap Send in WhatsApp, or call +91 98333 02828.';
-    if(ok===false&&!win)msg.innerHTML='Could not send email. <a href="'+wa+'" target="_blank" rel="noopener">Send on WhatsApp</a> or call +91 98333 02828.';
+    else msg.textContent=ok?'Thank you! Your enquiry was emailed to us. Please tap Send in WhatsApp to finish.':'WhatsApp opened, but email could not be sent. Please tap Send in WhatsApp, or call +91 99256 41060.';
+    if(ok===false&&!win)msg.innerHTML='Could not send email. <a href="'+wa+'" target="_blank" rel="noopener">Send on WhatsApp</a> or call +91 99256 41060.';
     if(ok)form.reset();
     btn.disabled=false;
   });
