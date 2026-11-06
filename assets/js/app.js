@@ -24,7 +24,9 @@ function calc(){
 }
 if(kw){kw.oninput=calc;rate.oninput=calc;
 document.querySelectorAll('#presets button').forEach(b=>b.onclick=()=>{kw.value=b.dataset.kw;calc()});calc();}
-// quote form -> emailed to info@zenithonsolar.com (FormSubmit, no backend) and, in the same click, opens WhatsApp with the enquiry pre-filled.
+// Web3Forms access key: its mail goes to the address the key was created with (no activation step). Replace the key to change the receiving mail.
+const WEB3FORMS_KEY='PASTE_ACCESS_KEY_HERE';
+// quote form -> emailed via Web3Forms (no backend) and, in the same click, opens WhatsApp with the enquiry pre-filled.
 if($('quote'))$('quote').addEventListener('submit',e=>{
   e.preventDefault();
   const form=e.target,f=new FormData(form),btn=form.querySelector('button[type=submit]'),msg=$('fmsg');
@@ -36,12 +38,12 @@ if($('quote'))$('quote').addEventListener('submit',e=>{
   btn.disabled=true;msg.textContent='Sending your enquiry…';
   // open WhatsApp synchronously (inside the click) so popup blockers allow it
   const win=window.open(wa,'_blank');
-  const mail=fetch('https://formsubmit.co/ajax/info@zenithonsolar.com',{
+  const mail=fetch('https://api.web3forms.com/submit',{
     method:'POST',keepalive:true,
     headers:{'Content-Type':'application/json','Accept':'application/json'},
-    body:JSON.stringify({_subject:'Solar enquiry – '+type+' – '+name,_template:'table',_captcha:'false',
-      Name:name,Phone:phone,Email:email||'-',Interested_in:type,Requirement:req||'-',email:email||undefined})
-  }).then(r=>r.json().then(j=>r.ok&&String(j.success)!=='false'));
+    body:JSON.stringify({access_key:WEB3FORMS_KEY,subject:'Solar enquiry – '+type+' – '+name,from_name:'Zenithon Solar Website',
+      Name:name,Phone:phone,Email:email||'-',Interested_in:type,Requirement:req||'-',replyto:email||undefined})
+  }).then(r=>r.json().then(j=>r.ok&&j.success===true));
   mail.catch(()=>false).then(ok=>{
     if(!win)msg.innerHTML='Email sent. <a href="'+wa+'" target="_blank" rel="noopener">Tap here to send on WhatsApp too</a>.';
     else msg.textContent=ok?'Thank you! Your enquiry was emailed to us. Please tap Send in WhatsApp to finish.':'WhatsApp opened, but email could not be sent. Please tap Send in WhatsApp, or call +91 98333 02828.';
